@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#111827">
+<link rel="manifest" href="manifest.webmanifest">
+<title>China Homelife — Sourcing de Feira</title>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--ink:#111827;--muted:#6b7280;--line:#e5e7eb;--accent:#111827;--ok:#166534;--warn:#92400e}
+*{box-sizing:border-box} body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink)}
+header{position:sticky;top:0;z-index:5;background:#111827;color:#fff;padding:14px 16px;box-shadow:0 1px 8px #0002}
+header b{font-size:16px} header small{display:block;color:#cbd5e1;margin-top:2px}
+main{max-width:980px;margin:auto;padding:12px 12px 90px}
+nav{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-bottom:10px}
+nav button,.btn{border:0;border-radius:10px;padding:10px 8px;background:#fff;color:#111827;font-weight:650;box-shadow:0 1px 2px #0001}
+nav button.active,.btn.primary{background:#111827;color:#fff}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:10px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+@media(max-width:700px){.grid,.grid3{grid-template-columns:1fr} nav{grid-template-columns:repeat(3,1fr)}}
+label{font-size:12px;color:var(--muted);display:block;margin-bottom:4px}
+input,select,textarea{width:100%;border:1px solid var(--line);border-radius:9px;padding:10px;background:#fff;font-size:15px}
+textarea{min-height:76px;resize:vertical}
+h2{font-size:17px;margin:4px 0 12px} h3{font-size:14px;margin:14px 0 8px}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.badge{display:inline-block;padding:4px 8px;border-radius:999px;background:#eef2ff;font-size:12px}
+.kpi{font-size:24px;font-weight:750}.muted{color:var(--muted);font-size:13px}
+.item{border-top:1px solid var(--line);padding:11px 0}.item:first-child{border-top:0}
+.item b{font-size:14px}.thumbs{display:flex;gap:6px;overflow:auto;margin-top:8px}
+.thumbs img{width:72px;height:72px;object-fit:cover;border-radius:8px;border:1px solid var(--line)}
+.checks{display:grid;grid-template-columns:repeat(2,1fr);gap:7px}
+.checks label{font-size:14px;color:var(--ink);display:flex;gap:8px;align-items:center}.checks input{width:auto}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.actions button{border:0;border-radius:9px;padding:10px 12px;font-weight:700}
+.danger{background:#fee2e2;color:#991b1b}.ghost{background:#f3f4f6}.ok{background:#dcfce7;color:#166534}
+.hidden{display:none!important}
+footer{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--line);padding:8px 12px env(safe-area-inset-bottom);z-index:4}
+footer .row{max-width:980px;margin:auto;justify-content:space-between}
+.star{font-size:23px;cursor:pointer}
+</style>
+</head>
+<body>
+<header>
+  <b>China Homelife — Sourcing de Feira</b>
+  <small>Fornecedor → Produto → Preço → MOQ → Regulatórios → Concorrentes</small>
+</header>
+<main>
+<nav>
+<button data-tab="dash" class="active">Resumo</button>
+<button data-tab="supplier">Fornecedor</button>
+<button data-tab="product">Produto</button>
+<button data-tab="list">Base</button>
+<button data-tab="export">Exportar</button>
+</nav>
+
+<section id="dash" class="tab">
+<div class="grid3">
+  <div class="card"><div class="muted">Fornecedores</div><div class="kpi" id="kSup">0</div></div>
+  <div class="card"><div class="muted">Produtos</div><div class="kpi" id="kProd">0</div></div>
+  <div class="card"><div class="muted">Prioridade A</div><div class="kpi" id="kA">0</div></div>
+</div>
+<div class="card"><b>Base inicial pré-carregada</b><div class="muted">Dados já levantados anteriormente. Campos “Verificar” devem ser confirmados na feira antes de decisão comercial/regulatória.</div></div>
+<div class="card">
+<h2>Busca rápida</h2>
+<input id="quickSearch" placeholder="Empresa, stand, produto, SKU, material...">
+<div id="quickResults"></div>
+</div>
+</section>
+
+<section id="supplier" class="tab hidden">
+<div class="card">
+<h2>Novo / editar fornecedor</h2>
+<input type="hidden" id="supId">
+<div class="grid">
+<div><label>Empresa</label><input id="supName"></div>
+<div><label>Stand</label><input id="supStand"></div>
+<div><label>Fabricante / Trading</label><select id="supType"><option>Fabricante</option><option>Trading</option><option>Fabricante + Trading</option><option>Verificar</option></select></div>
+<div><label>Cidade / Província</label><input id="supCity"></div>
+<div><label>Site</label><input id="supSite" inputmode="url"></div>
+<div><label>Alibaba</label><input id="supAlibaba" inputmode="url"></div>
+<div><label>1688</label><input id="sup1688" inputmode="url"></div>
+<div><label>WhatsApp</label><input id="supWhatsapp" inputmode="tel"></div>
+<div><label>WeChat</label><input id="supWechat"></div>
+<div><label>E-mail</label><input id="supEmail" inputmode="email"></div>
+<div><label>Contato / vendedor</label><input id="supContact"></div>
+<div><label>Exporta ao Brasil?</label><select id="supBrazil"><option>Verificar</option><option>Sim</option><option>Não</option></select></div>
+<div><label>Porto FOB</label><input id="supPort"></div>
+<div><label>Lead time</label><input id="supLead"></div>
+<div><label>Pagamento</label><input id="supPay" placeholder="30/70 T/T, Trade Assurance..."></div>
+<div><label>Prioridade</label><select id="supPriority"><option>A</option><option>B</option><option>C</option><option>Descartar</option></select></div>
+</div>
+<h3>Avaliação (0–10)</h3>
+<div class="grid3">
+<div><label>Qualidade</label><input id="supQ" type="number" min="0" max="10"></div>
+<div><label>Preço</label><input id="supP" type="number" min="0" max="10"></div>
+<div><label>Comunicação</label><input id="supC" type="number" min="0" max="10"></div>
+</div>
+<div><label>Observações</label><textarea id="supNotes"></textarea></div>
+<div class="actions"><button class="btn primary" onclick="saveSupplier()">Salvar fornecedor</button><button class="ghost" onclick="clearSupplier()">Limpar</button></div>
+</div>
+</section>
+
+<section id="product" class="tab hidden">
+<div class="card">
+<h2>Novo / editar produto</h2>
+<input type="hidden" id="prodId">
+<div class="grid">
+<div><label>Fornecedor</label><select id="prodSupplier"></select></div>
+<div><label>Produto</label><input id="prodName"></div>
+<div><label>SKU / modelo</label><input id="prodSku"></div>
+<div><label>Categoria</label><input id="prodCategory"></div>
+<div><label>Material</label><input id="prodMaterial"></div>
+<div><label>Dimensões</label><input id="prodDims"></div>
+<div><label>Espessura</label><input id="prodThickness"></div>
+<div><label>Peso</label><input id="prodWeight"></div>
+<div><label>Acabamento / cor</label><input id="prodFinish"></div>
+<div><label>Aplicação</label><input id="prodUse"></div>
+</div>
+<h3>Preço e MOQ</h3>
+<div class="grid3">
+<div><label>Preço amostra</label><input id="priceSample" type="number" step="0.01"></div>
+<div><label>MOQ</label><input id="moq" type="number"></div>
+<div><label>Preço MOQ</label><input id="priceMoq" type="number" step="0.01"></div>
+<div><label>100 un.</label><input id="price100" type="number" step="0.01"></div>
+<div><label>500 un.</label><input id="price500" type="number" step="0.01"></div>
+<div><label>1000 un.</label><input id="price1000" type="number" step="0.01"></div>
+<div><label>Moeda</label><select id="currency"><option>USD</option><option>CNY</option><option>BRL</option></select></div>
+<div><label>Incoterm</label><select id="incoterm"><option>EXW</option><option>FOB</option><option>CIF</option><option>DDP</option></select></div>
+<div><label>Preço-alvo</label><input id="targetPrice" type="number" step="0.01"></div>
+</div>
+<h3>Amostra</h3>
+<div class="grid">
+<div><label>Disponível?</label><select id="sampleAvail"><option>Verificar</option><option>Sim</option><option>Não</option></select></div>
+<div><label>Grátis?</label><select id="sampleFree"><option>Verificar</option><option>Sim</option><option>Não</option></select></div>
+<div><label>Valor abatido no pedido?</label><select id="sampleRefund"><option>Verificar</option><option>Sim</option><option>Não</option></select></div>
+<div><label>Prazo da amostra</label><input id="sampleLead"></div>
+</div>
+<h3>Embalagem / logística</h3>
+<div class="grid3">
+<div><label>PCS/CTN</label><input id="pcsCtn" type="number"></div>
+<div><label>Caixa (cm)</label><input id="ctnDims"></div>
+<div><label>Peso bruto (kg)</label><input id="gw" type="number" step="0.01"></div>
+<div><label>CBM/caixa</label><input id="cbm" type="number" step="0.0001"></div>
+<div><label>20GP</label><input id="gp20"></div>
+<div><label>40HQ</label><input id="hq40"></div>
+</div>
+<h3>Brasil / regulatório</h3>
+<div class="grid">
+<div><label>NCM provável</label><input id="ncm"></div>
+<div><label>Descrição fiscal</label><input id="fiscalDesc"></div>
+<div><label>INMETRO</label><select id="inmetro"><option>Verificar</option><option>Não aplicável</option><option>Voluntário</option><option>Compulsório</option></select></div>
+<div><label>ANATEL</label><select id="anatel"><option>Verificar</option><option>Não</option><option>Sim</option></select></div>
+<div><label>ANVISA</label><select id="anvisa"><option>Verificar</option><option>Não</option><option>Sim</option></select></div>
+<div><label>MAPA</label><select id="mapa"><option>Verificar</option><option>Não</option><option>Sim</option></select></div>
+<div><label>IBAMA</label><select id="ibama"><option>Verificar</option><option>Não</option><option>Sim</option></select></div>
+<div><label>LI / LPCO / anuência</label><select id="license"><option>Verificar</option><option>Não</option><option>Sim</option></select></div>
+<div><label>Antidumping</label><select id="ad"><option>Verificar</option><option>Não identificado</option><option>Aplicável</option><option>Em investigação</option></select></div>
+<div><label>Norma ABNT/NBR</label><input id="nbr"></div>
+<div><label>Certificações</label><input id="certs"></div>
+<div><label>Fonte regulatória</label><input id="regSource" placeholder="URL / Portaria / norma"></div>
+</div>
+<h3>Concorrência</h3>
+<div class="grid3">
+<div><label>Concorrente 1</label><input id="comp1"></div>
+<div><label>Preço 1</label><input id="comp1p" type="number" step="0.01"></div>
+<div><label>Link 1</label><input id="comp1l"></div>
+<div><label>Concorrente 2</label><input id="comp2"></div>
+<div><label>Preço 2</label><input id="comp2p" type="number" step="0.01"></div>
+<div><label>Link 2</label><input id="comp2l"></div>
+<div><label>Concorrente 3</label><input id="comp3"></div>
+<div><label>Preço 3</label><input id="comp3p" type="number" step="0.01"></div>
+<div><label>Link 3</label><input id="comp3l"></div>
+</div>
+<h3>Fotos</h3>
+<input id="photos" type="file" accept="image/*" capture="environment" multiple>
+<div class="muted">As fotos ficam salvas localmente neste aparelho.</div>
+<div id="photoPreview" class="thumbs"></div>
+<div><label>Observações</label><textarea id="prodNotes"></textarea></div>
+<div class="actions"><button class="btn primary" onclick="saveProduct()">Salvar produto</button><button class="ghost" onclick="clearProduct()">Limpar</button></div>
+</div>
+</section>
+
+<section id="list" class="tab hidden">
+<div class="card">
+<h2>Base</h2>
+<input id="listSearch" placeholder="Buscar..." oninput="renderList()">
+<div id="records"></div>
+</div>
+</section>
+
+<section id="export" class="tab hidden">
+<div class="card">
+<h2>Backup e exportação</h2>
+<p class="muted">Faça backup durante a feira. Os dados são locais ao aparelho/navegador.</p>
+<div class="actions">
+<button class="btn primary" onclick="exportJSON()">Exportar JSON</button>
+<button class="ghost" onclick="exportCSV()">Exportar CSV produtos</button>
+<button class="ghost" onclick="window.print()">Imprimir / PDF</button>
+</div>
+<h3>Importar backup</h3>
+<input id="importFile" type="file" accept=".json,application/json">
+<button class="ghost" onclick="importJSON()">Importar JSON</button>
+</div>
+</section>
+</main>
+
+<footer><div class="row"><span class="muted">Offline-first • dados locais</span><button class="btn primary" onclick="go('product')">+ Produto</button></div></footer>
+
+<script>
+const SEED_SUPPLIERS=[{"id": "sup_hanxin", "name": "Zhejiang Hanxin Cookware Co., Ltd.", "stand": "2B232", "type": "Fabricante", "city": "Zhejiang, China", "site": "https://www.yoyahome.com/", "alibaba": "", "x1688": "", "whatsapp": "+86 13858921999", "wechat": "", "email": "", "contact": "", "brazil": "Verificar", "port": "Verificar", "lead": "Verificar", "pay": "Verificar", "priority": "B", "quality": "", "priceScore": "", "comm": "", "notes": "Confirmado para China Homelife Brasil 2026. Produtos: panelas de alumínio, antiaderentes, cerâmica, fry pans, casseroles, conjuntos, OEM/ODM. Telefone fixo divulgado: +86 579 89091753. Preços e MOQ: solicitar cotação."}, {"id": "sup_wecan", "name": "Hangzhou Wecan Houseware Co., Ltd.", "stand": "2E131", "type": "Fabricante", "city": "Hangzhou, Zhejiang, China", "site": "http://www.wecanhouseware.com/", "alibaba": "", "x1688": "", "whatsapp": "", "wechat": "", "email": "", "contact": "", "brazil": "Verificar", "port": "Verificar", "lead": "Verificar", "pay": "Verificar", "priority": "B", "quality": "", "priceScore": "", "comm": "", "notes": "Confirmado para 2026. Produtos: garrafas térmicas, copos, inox 304/316, Tritan, smart bottles e drinkware. Preços/MOQ: verificar."}, {"id": "sup_hongke", "name": "Hangzhou Hongke Sports Equipment Co., Ltd.", "stand": "2F124", "type": "Fabricante", "city": "Hangzhou, Zhejiang, China", "site": "", "alibaba": "", "x1688": "", "whatsapp": "", "wechat": "", "email": "", "contact": "", "brazil": "Verificar", "port": "Verificar", "lead": "Verificar", "pay": "Verificar", "priority": "C", "quality": "", "priceScore": "", "comm": "", "notes": "Expositor VIP identificado. Produtos: raquetes de tênis/badminton e equipamentos esportivos. Contatos, preços e MOQ ainda a validar."}, {"id": "sup_xinsheng", "name": "Dongguan Xinsheng Hardware Machinery Co., Ltd.", "stand": "", "type": "Fabricante", "city": "Dongguan, Guangdong, China", "site": "https://www.xinshengmachinery.com/", "alibaba": "", "x1688": "", "whatsapp": "+86 18925460605", "wechat": "", "email": "jerry@buckleforming.com", "contact": "Jerry (validar)", "brazil": "Verificar", "port": "Shenzhen/Guangzhou (validar)", "lead": "Verificar", "pay": "Verificar", "priority": "A", "quality": "", "priceScore": "", "comm": "", "notes": "Lista pública da edição atual. Produtos: máquinas CNC para conformação 2D/3D de arame, tubos e tiras metálicas; molas, argolas, correntes, ganchos, alças e peças metálicas OEM/ODM. Relevante para ferragens e fabricação de componentes."}, {"id": "sup_landpack", "name": "Foshan Land Packaging Machinery Co., Ltd.", "stand": "", "type": "Fabricante", "city": "Foshan, Guangdong, China", "site": "https://www.landpack.com/", "alibaba": "", "x1688": "", "whatsapp": "+86 17388602385", "wechat": "+86 17388602385", "email": "", "contact": "", "brazil": "Verificar", "port": "Foshan/Guangzhou/Shenzhen (validar)", "lead": "Verificar", "pay": "Verificar", "priority": "A", "quality": "", "priceScore": "", "comm": "", "notes": "Lista pública da edição atual. Máquinas de embalagem, VFFS, enchimento, pouch e sistemas para contar/embalar parafusos, pregos, ferragens, peças de móveis, componentes plásticos e borracha. WhatsApp/WeChat divulgado: +86 173 8860 2385."}, {"id": "sup_besure", "name": "BeSure Technology Co., Ltd.", "stand": "", "type": "Fabricante", "city": "China", "site": "https://www.mybesure.com/", "alibaba": "", "x1688": "", "whatsapp": "", "wechat": "", "email": "", "contact": "", "brazil": "Verificar", "port": "Verificar", "lead": "Verificar", "pay": "Verificar", "priority": "C", "quality": "", "priceScore": "", "comm": "", "notes": "Lista pública da edição atual. Produtos: máquinas e linhas de molded pulp, embalagens de fibra/polpa e moldes."}, {"id": "sup_jinli", "name": "Linyi Jinli Machinery Co., Ltd.", "stand": "", "type": "Fabricante", "city": "Linyi, Shandong, China", "site": "https://jinli.cc/", "alibaba": "", "x1688": "", "whatsapp": "", "wechat": "", "email": "jinli@jinli.cc", "contact": "", "brazil": "Verificar", "port": "Qingdao (validar)", "lead": "Verificar", "pay": "Verificar", "priority": "A", "quality": "", "priceScore": "", "comm": "", "notes": "Lista pública da edição atual. Produtos: componentes metálicos, estampagem, peças OEM/ODM, injeção plástica e equipamentos. Telefone divulgado anteriormente: +86 539 8529201."}, {"id": "sup_zpack", "name": "Jiangsu ZPACK Machinery Co., Ltd.", "stand": "", "type": "Fabricante", "city": "Jiangsu, China", "site": "", "alibaba": "", "x1688": "", "whatsapp": "", "wechat": "", "email": "", "contact": "", "brazil": "Verificar", "port": "Verificar", "lead": "Verificar", "pay": "Verificar", "priority": "C", "quality": "", "priceScore": "", "comm": "", "notes": "Listado como expositor da edição atual. Máquinas industriais/embalagem. Demais dados ainda a validar."}, {"id": "sup_lingmin", "name": "Shanghai Ling Min Packaging Material", "stand": "", "type": "Verificar", "city": "Shanghai, China", "site": "", "alibaba": "", "x1688": "", "whatsapp": "", "wechat": "", "email": "", "contact": "", "brazil": "Verificar", "port": "Shanghai", "lead": "Verificar", "pay": "Verificar", "priority": "C", "quality": "", "priceScore": "", "comm": "", "notes": "Listado na edição atual. Materiais de embalagem. Dados adicionais ainda a validar."}, {"id": "sup_exampleeoe", "name": "Fujian Example EOE Group", "stand": "", "type": "Fabricante", "city": "Fujian, China", "site": "", "alibaba": "", "x1688": "", "whatsapp": "", "wechat": "", "email": "", "contact": "", "brazil": "Verificar", "port": "Xiamen/Fuzhou (validar)", "lead": "Verificar", "pay": "Verificar", "priority": "C", "quality": "", "priceScore": "", "comm": "", "notes": "Listado na edição atual. Embalagens de folha-de-flandres e máquinas para enlatados."}];
+const SEED_PRODUCTS=[{"id": "prod_hanxin_cookware", "prodSupplier": "sup_hanxin", "prodName": "Cookware / conjuntos de panelas", "prodSku": "", "prodCategory": "Casa e cozinha", "prodMaterial": "Alumínio / revestimentos antiaderentes / cerâmica", "prodDims": "", "prodThickness": "", "prodWeight": "", "prodFinish": "Variável", "prodUse": "Cozinha doméstica", "priceSample": "", "moq": "", "priceMoq": "", "price100": "", "price500": "", "price1000": "", "currency": "USD", "incoterm": "FOB", "targetPrice": "", "sampleAvail": "Verificar", "sampleFree": "Verificar", "sampleRefund": "Verificar", "sampleLead": "", "pcsCtn": "", "ctnDims": "", "gw": "", "cbm": "", "gp20": "", "hq40": "", "ncm": "", "fiscalDesc": "Panelas e utensílios de cozinha — classificar por material/modelo", "inmetro": "Verificar", "anatel": "Não", "anvisa": "Verificar", "mapa": "Não", "ibama": "Verificar", "license": "Verificar", "ad": "Verificar", "nbr": "", "certs": "", "regSource": "", "comp1": "", "comp1p": "", "comp1l": "", "comp2": "", "comp2p": "", "comp2l": "", "comp3": "", "comp3p": "", "comp3l": "", "prodNotes": "Linha inclui fry pans, casseroles e conjuntos. OEM/ODM disponível. Solicitar MOQ, preço por conjunto e certificado de contato com alimentos.", "photos": []}, {"id": "prod_wecan_bottle", "prodSupplier": "sup_wecan", "prodName": "Garrafas térmicas / drinkware", "prodSku": "", "prodCategory": "Casa e utilidades", "prodMaterial": "Aço inox 304/316, Tritan e outros", "prodDims": "", "prodThickness": "", "prodWeight": "", "prodFinish": "Diversos", "prodUse": "Bebidas / uso doméstico e promocional", "priceSample": "", "moq": "", "priceMoq": "", "price100": "", "price500": "", "price1000": "", "currency": "USD", "incoterm": "FOB", "targetPrice": "", "sampleAvail": "Verificar", "sampleFree": "Verificar", "sampleRefund": "Verificar", "sampleLead": "", "pcsCtn": "", "ctnDims": "", "gw": "", "cbm": "", "gp20": "", "hq40": "", "ncm": "", "fiscalDesc": "Garrafas/copos — classificar conforme material e construção", "inmetro": "Verificar", "anatel": "Verificar", "anvisa": "Verificar", "mapa": "Não", "ibama": "Verificar", "license": "Verificar", "ad": "Verificar", "nbr": "", "certs": "", "regSource": "", "comp1": "", "comp1p": "", "comp1l": "", "comp2": "", "comp2p": "", "comp2l": "", "comp3": "", "comp3p": "", "comp3l": "", "prodNotes": "Verificar versões inteligentes com eletrônica/RF, pois podem alterar requisitos regulatórios.", "photos": []}, {"id": "prod_xinsheng_wire", "prodSupplier": "sup_xinsheng", "prodName": "Máquina CNC para conformação de arame/tubo", "prodSku": "", "prodCategory": "Máquinas industriais", "prodMaterial": "Estrutura e componentes metálicos", "prodDims": "", "prodThickness": "", "prodWeight": "", "prodFinish": "", "prodUse": "Produção de ferragens, ganchos, molas, alças e peças 2D/3D", "priceSample": "", "moq": "1", "priceMoq": "", "price100": "", "price500": "", "price1000": "", "currency": "USD", "incoterm": "FOB", "targetPrice": "", "sampleAvail": "Não", "sampleFree": "Não", "sampleRefund": "Não", "sampleLead": "", "pcsCtn": "", "ctnDims": "", "gw": "", "cbm": "", "gp20": "", "hq40": "", "ncm": "", "fiscalDesc": "Máquina CNC de conformação — NCM a confirmar conforme função/modelo", "inmetro": "Verificar", "anatel": "Verificar", "anvisa": "Não", "mapa": "Não", "ibama": "Não", "license": "Verificar", "ad": "Verificar", "nbr": "", "certs": "", "regSource": "", "comp1": "", "comp1p": "", "comp1l": "", "comp2": "", "comp2p": "", "comp2l": "", "comp3": "", "comp3p": "", "comp3l": "", "prodNotes": "Solicitar vídeo, precisão, diâmetro máximo de arame/tubo, potência, tensão 220/380 V, software, assistência, peças de reposição e treinamento.", "photos": []}, {"id": "prod_landpack_hardware", "prodSupplier": "sup_landpack", "prodName": "Máquina para contar e embalar ferragens", "prodSku": "", "prodCategory": "Máquinas de embalagem", "prodMaterial": "Máquina industrial", "prodDims": "", "prodThickness": "", "prodWeight": "", "prodFinish": "", "prodUse": "Parafusos, pregos, ferragens, peças de móveis, componentes plásticos e borracha", "priceSample": "", "moq": "1", "priceMoq": "", "price100": "", "price500": "", "price1000": "", "currency": "USD", "incoterm": "FOB", "targetPrice": "", "sampleAvail": "Não", "sampleFree": "Não", "sampleRefund": "Não", "sampleLead": "", "pcsCtn": "", "ctnDims": "", "gw": "", "cbm": "", "gp20": "", "hq40": "", "ncm": "", "fiscalDesc": "Máquina de embalagem/contagem — NCM a confirmar conforme configuração", "inmetro": "Verificar", "anatel": "Verificar", "anvisa": "Não", "mapa": "Não", "ibama": "Não", "license": "Verificar", "ad": "Verificar", "nbr": "", "certs": "", "regSource": "", "comp1": "", "comp1p": "", "comp1l": "", "comp2": "", "comp2p": "", "comp2l": "", "comp3": "", "comp3p": "", "comp3l": "", "prodNotes": "Muito relevante para montagem de kits. Perguntar velocidade, faixa de contagem, tipos de saco, impressora/lote, 220 V/60 Hz, interface em inglês/português e integração com balança/contador.", "photos": []}, {"id": "prod_jinli_metal", "prodSupplier": "sup_jinli", "prodName": "Peças metálicas estampadas / OEM", "prodSku": "", "prodCategory": "Ferragens e componentes", "prodMaterial": "Metais diversos", "prodDims": "", "prodThickness": "", "prodWeight": "", "prodFinish": "Conforme projeto", "prodUse": "Componentes, ferragens, peças para móveis e indústria", "priceSample": "", "moq": "", "priceMoq": "", "price100": "", "price500": "", "price1000": "", "currency": "USD", "incoterm": "FOB", "targetPrice": "", "sampleAvail": "Verificar", "sampleFree": "Verificar", "sampleRefund": "Verificar", "sampleLead": "", "pcsCtn": "", "ctnDims": "", "gw": "", "cbm": "", "gp20": "", "hq40": "", "ncm": "", "fiscalDesc": "Peças metálicas — NCM depende do tipo/material/função", "inmetro": "Verificar", "anatel": "Não", "anvisa": "Não", "mapa": "Não", "ibama": "Verificar", "license": "Verificar", "ad": "Verificar", "nbr": "", "certs": "", "regSource": "", "comp1": "", "comp1p": "", "comp1l": "", "comp2": "", "comp2p": "", "comp2l": "", "comp3": "", "comp3p": "", "comp3l": "", "prodNotes": "Solicitar MOQ por desenho, custo de ferramental/molde, tolerâncias, acabamento, amostra inicial e propriedade do molde.", "photos": []}];
+function mergeById(saved,seed){const m=new Map((seed||[]).map(x=>[x.id,x]));(saved||[]).forEach(x=>m.set(x.id,{...m.get(x.id),...x}));return [...m.values()]}
+const DB={suppliers:mergeById(JSON.parse(localStorage.getItem('chs_suppliers')||'[]'),SEED_SUPPLIERS),products:mergeById(JSON.parse(localStorage.getItem('chs_products')||'[]'),SEED_PRODUCTS)};
+let pendingPhotos=[];
+
+function persist(){localStorage.setItem('chs_suppliers',JSON.stringify(DB.suppliers));localStorage.setItem('chs_products',JSON.stringify(DB.products));refresh();}
+function id(){return Date.now().toString(36)+Math.random().toString(36).slice(2,7)}
+function v(x){return document.getElementById(x).value}
+function setv(x,val){document.getElementById(x).value=val??''}
+function go(tab){document.querySelectorAll('.tab').forEach(x=>x.classList.add('hidden'));document.getElementById(tab).classList.remove('hidden');document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));if(tab==='list')renderList()}
+document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>go(b.dataset.tab));
+
+function refresh(){
+  kSup.textContent=DB.suppliers.length;kProd.textContent=DB.products.length;kA.textContent=DB.suppliers.filter(s=>s.priority==='A').length;
+  prodSupplier.innerHTML='<option value="">Selecione</option>'+DB.suppliers.map(s=>`<option value="${s.id}">${esc(s.name)}${s.stand?' — '+esc(s.stand):''}</option>`).join('');
+  renderList();
+}
+function esc(s=''){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+
+function saveSupplier(){
+  if(!v('supName').trim()) return alert('Informe a empresa.');
+  const o={id:v('supId')||id(),name:v('supName'),stand:v('supStand'),type:v('supType'),city:v('supCity'),site:v('supSite'),alibaba:v('supAlibaba'),x1688:v('sup1688'),whatsapp:v('supWhatsapp'),wechat:v('supWechat'),email:v('supEmail'),contact:v('supContact'),brazil:v('supBrazil'),port:v('supPort'),lead:v('supLead'),pay:v('supPay'),priority:v('supPriority'),quality:v('supQ'),priceScore:v('supP'),comm:v('supC'),notes:v('supNotes')};
+  const i=DB.suppliers.findIndex(x=>x.id===o.id); if(i>=0)DB.suppliers[i]=o;else DB.suppliers.push(o);persist();clearSupplier();go('list');
+}
+function clearSupplier(){['supId','supName','supStand','supCity','supSite','supAlibaba','sup1688','supWhatsapp','supWechat','supEmail','supContact','supPort','supLead','supPay','supQ','supP','supC','supNotes'].forEach(x=>setv(x,''));setv('supType','Fabricante');setv('supBrazil','Verificar');setv('supPriority','A')}
+function editSupplier(x){const s=DB.suppliers.find(a=>a.id===x);if(!s)return;Object.entries({supId:s.id,supName:s.name,supStand:s.stand,supType:s.type,supCity:s.city,supSite:s.site,supAlibaba:s.alibaba,sup1688:s.x1688,supWhatsapp:s.whatsapp,supWechat:s.wechat,supEmail:s.email,supContact:s.contact,supBrazil:s.brazil,supPort:s.port,supLead:s.lead,supPay:s.pay,supPriority:s.priority,supQ:s.quality,supP:s.priceScore,supC:s.comm,supNotes:s.notes}).forEach(([k,val])=>setv(k,val));go('supplier')}
+
+photos.onchange=async e=>{pendingPhotos=[];for(const f of [...e.target.files].slice(0,8)){pendingPhotos.push(await resizeImage(f))}photoPreview.innerHTML=pendingPhotos.map(p=>`<img src="${p}">`).join('')};
+function resizeImage(file){return new Promise(res=>{const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{const max=900,scale=Math.min(1,max/Math.max(im.width,im.height));const c=document.createElement('canvas');c.width=im.width*scale;c.height=im.height*scale;c.getContext('2d').drawImage(im,0,0,c.width,c.height);res(c.toDataURL('image/jpeg',.72))};im.src=r.result};r.readAsDataURL(file)})}
+
+function saveProduct(){
+ if(!v('prodName').trim()) return alert('Informe o produto.');
+ const fields=['prodSupplier','prodName','prodSku','prodCategory','prodMaterial','prodDims','prodThickness','prodWeight','prodFinish','prodUse','priceSample','moq','priceMoq','price100','price500','price1000','currency','incoterm','targetPrice','sampleAvail','sampleFree','sampleRefund','sampleLead','pcsCtn','ctnDims','gw','cbm','gp20','hq40','ncm','fiscalDesc','inmetro','anatel','anvisa','mapa','ibama','license','ad','nbr','certs','regSource','comp1','comp1p','comp1l','comp2','comp2p','comp2l','comp3','comp3p','comp3l','prodNotes'];
+ const o={id:v('prodId')||id(),photos:pendingPhotos};fields.forEach(f=>o[f]=v(f));
+ const old=DB.products.find(x=>x.id===o.id);if(old && !pendingPhotos.length)o.photos=old.photos||[];
+ const i=DB.products.findIndex(x=>x.id===o.id);if(i>=0)DB.products[i]=o;else DB.products.push(o);persist();clearProduct();go('list');
+}
+function clearProduct(){document.querySelectorAll('#product input,#product textarea').forEach(e=>{if(e.type!=='file')e.value=''});['prodSupplier','prodName'].forEach(()=>{});setv('currency','USD');setv('incoterm','EXW');['sampleAvail','sampleFree','sampleRefund','inmetro','anatel','anvisa','mapa','ibama','license','ad'].forEach(x=>setv(x,'Verificar'));pendingPhotos=[];photoPreview.innerHTML='';photos.value=''}
+function editProduct(x){const p=DB.products.find(a=>a.id===x);if(!p)return;setv('prodId',p.id);Object.keys(p).forEach(k=>{if(document.getElementById(k))setv(k,p[k])});pendingPhotos=p.photos||[];photoPreview.innerHTML=pendingPhotos.map(q=>`<img src="${q}">`).join('');go('product')}
+function delProduct(x){if(confirm('Excluir produto?')){DB.products=DB.products.filter(a=>a.id!==x);persist()}}
+function delSupplier(x){if(confirm('Excluir fornecedor e manter produtos órfãos?')){DB.suppliers=DB.suppliers.filter(a=>a.id!==x);persist()}}
+
+function renderList(){
+ const q=(listSearch?.value||'').toLowerCase();
+ records.innerHTML=DB.suppliers.filter(s=>JSON.stringify(s).toLowerCase().includes(q)||DB.products.some(p=>p.prodSupplier===s.id&&JSON.stringify(p).toLowerCase().includes(q))).map(s=>{
+   const ps=DB.products.filter(p=>p.prodSupplier===s.id && (!q||JSON.stringify(p).toLowerCase().includes(q)||JSON.stringify(s).toLowerCase().includes(q)));
+   return `<div class="item"><div class="row"><b>${esc(s.name)}</b><span class="badge">${esc(s.priority||'')}</span><span class="muted">${esc(s.stand||'')}</span></div>
+   <div class="muted">${esc(s.city||'')} • ${esc(s.type||'')} • ${ps.length} produto(s)</div>
+   <div class="actions"><button class="ghost" onclick="editSupplier('${s.id}')">Editar fornecedor</button>${s.whatsapp?`<button class="ok" onclick="location.href='https://wa.me/${String(s.whatsapp).replace(/\D/g,'')}'">WhatsApp</button>`:''}<button class="danger" onclick="delSupplier('${s.id}')">Excluir</button></div>
+   ${ps.map(p=>`<div class="card" style="margin-top:9px"><b>${esc(p.prodName)}</b> <span class="muted">${esc(p.prodSku||'')}</span><div class="muted">${esc(p.prodMaterial||'')} ${p.ncm?'• NCM '+esc(p.ncm):''} • INMETRO: ${esc(p.inmetro||'Verificar')}</div>
+   <div class="row"><span class="badge">${esc(p.currency||'USD')} ${esc(p.priceMoq||'-')} @ MOQ ${esc(p.moq||'-')}</span><span class="badge">${esc(p.incoterm||'')}</span></div>
+   ${(p.photos||[]).length?`<div class="thumbs">${p.photos.map(i=>`<img src="${i}">`).join('')}</div>`:''}
+   <div class="actions"><button class="ghost" onclick="editProduct('${p.id}')">Editar</button><button class="danger" onclick="delProduct('${p.id}')">Excluir</button></div></div>`).join('')}</div>`
+ }).join('') || '<div class="muted">Nenhum registro.</div>';
+}
+
+quickSearch.oninput=()=>{const q=quickSearch.value.toLowerCase();if(!q){quickResults.innerHTML='';return}const rows=[];DB.suppliers.forEach(s=>{if(JSON.stringify(s).toLowerCase().includes(q))rows.push(`<div class="item"><b>${esc(s.name)}</b> <span class="muted">${esc(s.stand||'')}</span></div>`)});DB.products.forEach(p=>{if(JSON.stringify(p).toLowerCase().includes(q)){const s=DB.suppliers.find(x=>x.id===p.prodSupplier);rows.push(`<div class="item"><b>${esc(p.prodName)}</b><div class="muted">${esc(s?.name||'')} • ${esc(p.prodSku||'')}</div></div>`)} });quickResults.innerHTML=rows.slice(0,25).join('')||'<div class="muted">Sem resultados.</div>'}
+
+function download(name,text,type='application/json'){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([text],{type}));a.download=name;a.click();URL.revokeObjectURL(a.href)}
+function exportJSON(){download('china-homelife-backup-'+new Date().toISOString().slice(0,10)+'.json',JSON.stringify(DB,null,2))}
+function exportCSV(){const cols=['Fornecedor','Stand','Produto','SKU','Categoria','Material','Dimensoes','Espessura','Peso','MOQ','Preco_MOQ','Moeda','Incoterm','Amostra','NCM','INMETRO','ANATEL','ANVISA','MAPA','IBAMA','Antidumping','Norma_NBR','Certificacoes'];const rows=[cols];DB.products.forEach(p=>{const s=DB.suppliers.find(x=>x.id===p.prodSupplier)||{};rows.push([s.name,s.stand,p.prodName,p.prodSku,p.prodCategory,p.prodMaterial,p.prodDims,p.prodThickness,p.prodWeight,p.moq,p.priceMoq,p.currency,p.incoterm,p.sampleAvail,p.ncm,p.inmetro,p.anatel,p.anvisa,p.mapa,p.ibama,p.ad,p.nbr,p.certs])});const csv=rows.map(r=>r.map(x=>`"${String(x??'').replaceAll('"','""')}"`).join(',')).join('\n');download('china-homelife-produtos.csv','\ufeff'+csv,'text/csv;charset=utf-8')}
+function importJSON(){const f=importFile.files[0];if(!f)return alert('Selecione o backup.');const r=new FileReader();r.onload=()=>{try{const d=JSON.parse(r.result);DB.suppliers=d.suppliers||[];DB.products=d.products||[];persist();alert('Backup importado.')}catch(e){alert('Arquivo inválido.')}};r.readAsText(f)}
+if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}))}
+refresh();
+</script>
+</body>
+</html>
